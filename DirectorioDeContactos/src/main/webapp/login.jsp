@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-12">
                   <div class="d-grid">
-                    <button class="btn btn-lg btn-dark rounded-0 fs-6" type="submit">Ingresar</button>
+                    <a href="index.jsp" class="btn btn-lg btn-dark rounded-0 fs-6" type="submit">Ingresar</a>
                   </div>
                 </div>
               </div>
@@ -116,4 +116,5 @@
     </div>
   </div>
 </div>
+
 <%@include file= "Template/footer.jsp" %>
