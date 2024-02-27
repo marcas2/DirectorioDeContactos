@@ -42,7 +42,7 @@ public class Nodo implements Serializable {
     public void setDerecha(Nodo derecha) {
         this.derecha = derecha;
     }
-    public void imprimirDato() {
-      System.out.println(this.getContacto().getNombre());
+    public void imprimirDato() { 
+        System.out.println(this.getContacto().getNombre());
     }
 }

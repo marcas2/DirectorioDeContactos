@@ -1,5 +1,25 @@
-<%@include file= "Template/header.jsp" %>
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Login</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+            
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+      
+<script>
+    $(document).ready(function () {
+        salir();
+    });
 
+</script>
 <section class="py-3 py-md-5 py-xl-8">
   <div class="container">
     <div class="row">
@@ -47,7 +67,7 @@
                 </div>
                 <div class="col-12">
                   <div class="d-grid">
-                    <a href="index.jsp" class="btn btn-lg btn-dark rounded-0 fs-6" type="submit">Ingresar</a>
+                    <a href="index.jsp?alert=ingreso" class="btn btn-lg btn-dark rounded-0 fs-6" >Ingresar</a>
                   </div>
                 </div>
               </div>
@@ -116,5 +136,25 @@
     </div>
   </div>
 </div>
+    <!-- Scripts necesarios (jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
-<%@include file= "Template/footer.jsp" %>
+    <!-- Librerias sweet alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<script>
+           function salir() {
+     Swal.fire({
+            icon: 'info', // Icono de éxito
+            title: 'Saliste!', // Título de la notificación
+            text: 'Esperamos verte pronto :(', // Texto de la notificación
+            showConfirmButton: false, // Nos muestra el botón de confirmación
+            timer: 1500 // Tiempo de duración de la notificación (en milisegundos)
+        })
+    }
+    </script>
+    </body>
+</html>

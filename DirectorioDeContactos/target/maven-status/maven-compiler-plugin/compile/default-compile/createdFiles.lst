@@ -1,6 +1,8 @@
-Java\ArbolDirectorio.class
 Java\Persistencia.class
-Java\Contacto.class
 Java\Nodo.class
-Servlets\SvGestionContacto.class
 Java\Directorio.class
+Java\Metodos.class
+Servlets\SvEliminarBuscar.class
+Java\Contacto.class
+Servlets\SvGestiones.class
+Servlets\SvGestionContacto.class

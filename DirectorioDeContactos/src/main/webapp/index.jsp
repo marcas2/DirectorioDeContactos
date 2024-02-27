@@ -1,187 +1,383 @@
+<%@page import="Java.Metodos"%>
+<%@page import="Java.Persistencia"%>
+<%@page import="Java.Directorio"%>
 <%@include file= "Template/header.jsp" %>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Directorio</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.jsp">Directorio Contactos</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>
-            <!-- Navbar-->
-            <a class="navbar-brand ps-1"  href="login.jsp">
-            <i class="fas fa-user fa-fw"></i>
+                    <% 
+                     ServletContext context = getServletContext();
+                     String termino=request.getParameter("termino");
+                     String alert = request.getParameter("alert");
+                     System.out.println(request.getParameter("alert"));
+                     String tabla=Metodos.tabla(termino, context);
+                     System.out.println("aaaaaaaaaa "+alert);
 
-                </a>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Paginas</div>
-                            <a class="nav-link" href="index.jsp">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Directorio
-                            </a>
-                            <a class="nav-link" href="agregar.jsp">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Agregar Contactos
-                            </a>
+                     if (alert!=null){
+                     
+                      if(alert.equals("anadido")){
+                     
+                      %>
+<script>
+    $(document).ready(function () {
+        anadido();
+    });
+
+</script>
+
+<%
+                        }else if(alert.equals("editado")){
+                     
+                      %>
+<script>
+    $(document).ready(function () {
+        editado();
+    });
+
+</script>
+
+<%
+                        }  else if(alert.equals("ingreso")){
+                     
+                      %>
+<script>
+    $(document).ready(function () {
+        ingreso();
+    });
+
+</script>
+
+<%
+                        }
+                     
+                     }
+                %>
+                <!-- Contenido de la pagina -->
+                <div class="container-fluid">
+                    <!-- Titulo -->
+                    <div class=" justify-content-between mb-4">
+                        <center>                       
+                        <h1 style="color: black;"><strong>Directorio de contactos</strong></h1>
+                        </center>  
+                    </div>
+                
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Contactos gestionados </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">40,000 </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Empresas gestionadas</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">200</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Porcentaje de satisfacción
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">100%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-info" role="progressbar"
+                                                            style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Conversaciones gestionadas</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">180.000</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Bienvenido, </div>
-                        usuario
-                    </div>
-                </nav>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Directorio de Contactos</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Accede a tus contactos :)</li>
-                        </ol>
-
-
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Contactos
-                            </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Directorio de contactos</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable_wrapper" width="100%" cellspacing="0" >
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Id</th>
+                                            <th>Nombres</th>
+                                            <th>Apellidos</th>
+                                            <th>Dirección</th>
+                                            <th>Telefono</th>
+                                            <th>Correo</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012/03/29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Airi Satou</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>33</td>
-                                            <td>2008/11/28</td>
-                                            <td>$162,700</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brielle Williamson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>New York</td>
-                                            <td>61</td>
-                                            <td>2012/12/02</td>
-                                            <td>$372,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Herrod Chandler</td>
-                                            <td>Sales Assistant</td>
-                                            <td>San Francisco</td>
-                                            <td>59</td>
-                                            <td>2012/08/06</td>
-                                            <td>$137,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Rhona Davidson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Tokyo</td>
-                                            <td>55</td>
-                                            <td>2010/10/14</td>
-                                            <td>$327,900</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Colleen Hurst</td>
-                                            <td>Javascript Developer</td>
-                                            <td>San Francisco</td>
-                                            <td>39</td>
-                                            <td>2009/09/15</td>
-                                            <td>$205,500</td>
-                                        </tr>
-
+                                        <%=tabla%>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Directorio De Contactos</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- Fin del contenido de la pagina-->
+
+
+        </div>
+        <!-- End of Content Wrapper -->
+        <!-- modal ver -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal de contenedor principal -->
+    <div class="modal-dialog">
+        <!-- Modal Dialog: Contiene el contenido modal -->
+        <div class="modal-content">
+            <!-- Modal Content: Contenido del modal -->
+            <div class="modal-header">
+                <!-- Encabezado del modal -->
+                <h5 class="modal-title" id="exampleModalLabel">Detalles del Libro</h5>
+                <!-- Título del modal -->
+                <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                <!-- Botón para cerrar el modal -->
+            </div>
+            <div class="modal-body">
+                <!-- Cuerpo del modal -->
+                <div id="libro-details">
+                    <!-- Contenido dinámico: Aquí se mostrarán los detalles del libro -->
+                </div>
+
+            </div>
+                            <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+        </div>
+    </div>
+</div>
+<!-- modal editar -->
+<div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel"aria-hidden="true">
+    <!-- Modal Dialog: Contiene el contenido modal -->
+    <div class="modal-dialog">
+        <!-- Modal Content: Contenido del modal -->
+        <div class="modal-content">
+            <!-- Encabezado del modal -->
+            <div class="modal-header">
+                <!-- Título del modal -->
+                <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+                <!-- Botón para cerrar el modal -->
+                 <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                        ×
+                    </button>
+            </div>
+
+            <div class="modal-body">
+                    <!-- Formulario para editar -->
+                    <div id="editar-details">
+                        <!-- Contenido dinámico: Aquí se mostrarán los detalles a editar -->
                     </div>
-                </footer>
+            </div>
+            <div class="modal-footer">
+                 
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
-    </body>
-</html>
+    </div>
+</div>        
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scripts necesarios (jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
+    <!-- Librerias sweet alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+        <script>
+    $(document).ready(function () {
+        // Al hacer clic en un elemento con el atributo data-bs-toggle="ver"
+        $('[data-bs-toggle="ver"]').on('click', function () {
+            // Obtener el título del libro desde el atributo data-nombre
+            var id = $(this).data('nombre');
+            // Realizar una solicitud AJAX para obtener detalles del libro por su título
+            $.ajax({
+                url: 'SvGestionContacto?id=' + id, // URL del servlet o recurso que maneja la solicitud
+                method: 'GET',
+                success: function (data) {
+                    // Éxito: Colocar los detalles del libro en el contenedor #libro-details
+                    $('#libro-details').html(data);
+                    // Mostrar el modal (exampleModal) una vez que se han cargado los detalles del libro
+                    $('#exampleModal').modal('show');
+                },
+                error: function () {
+                    console.log('Error al cargar los detalles del libro.');
+                }
+            });
+        });
+    });
+   
+    $(document).ready(function () {
+        $('[data-bs-toggle="editar"]').on('click', function () {
+            var id = $(this).data('nombre');
+            $.ajax({
+                url: 'SvGestiones2?id=' + id,
+                method: 'GET',
+                success: function (data) {
+                    $('#editar-details').html(data);
+                    $('#editarModal').modal('show'); // Muestra el modal una vez que se han cargado los detalles del libro
+                },
+                error: function () {
+                    console.log('Error al cargar los detalles del libro.');
+                }
+            });
+        });
+    });
+        // Repetir el mismo proceso para el botón de editar
+    $(document).ready(function () {
+        $('[data-bs-toggle="editar"]').on('click', function () {
+            var id = $(this).data('nombre');
+            $.ajax({
+                url: 'SvGestiones?id=' + id,
+                method: 'GET',
+                success: function (data) {
+                    $('#editar-details').html(data);
+                    $('#editarModal').modal('show'); // Muestra el modal una vez que se han cargado los detalles del libro
+                },
+                error: function () {
+                    console.log('Error al cargar los detalles del libro.');
+                }
+            });
+        });
+    });
+    
+    //ELIMINAR 
+ // Seleccionar todos los elementos con la clase "deleteButton" y agregar un event listener a cada uno
+    document.querySelectorAll(".deleteButton").forEach(function (button) {
+        button.addEventListener("click", function () {
+            // Obtener el título del libro desde el atributo "data-titulo"
+            const id = this.getAttribute("data-titulo");
+
+            // Crear un diálogo de confirmación personalizado con SweetAlert2
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            });
+            // Mostrar el diálogo de confirmación
+            swalWithBootstrapButtons.fire({
+                title: '¿Estás seguro?',
+                text: '¡No podrás revertir esto!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, borrarlo',
+                cancelButtonText: 'No, cancelar ',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirige al servlet con el título como parámetro en la URL
+                    window.location.href = "SvEliminarBuscar?id=" + encodeURIComponent(id);
+                    // Mostrar un mensaje de cancelación si el usuario decide no eliminar
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire(
+                            'Cancelado',
+                            'Tu libro imaginario está a salvo :)',
+                            'error'
+                            );
+                }
+            });
+        });
+    });
+    // Definición de la función 'añadido()'
+    // Definición de la función 'añadido()'
+    function anadido() {
+        // Utiliza la librería Swal para mostrar una notificación de éxito
+        Swal.fire({
+            icon: 'success', // Icono de éxito
+            title: 'Añadido exitosamente!', // Título de la notificación
+            text: '¡Puedes verlo en la pagina de gestionar!', // Texto de la notificación
+            showConfirmButton: false, // Nos muestra el botón de confirmación
+            timer: 1500 // Tiempo de duración de la notificación (en milisegundos)
+        })
+    }
+       function editado() {
+     Swal.fire({
+            icon: 'success', // Icono de éxito
+            title: 'Editado exitosamente!', // Título de la notificación
+            text: '¡Puedes verlo en la pagina de gestionar!', // Texto de la notificación
+            showConfirmButton: false, // Nos muestra el botón de confirmación
+            timer: 1500 // Tiempo de duración de la notificación (en milisegundos)
+        })
+    }
+          function ingreso() {
+     Swal.fire({
+            icon: 'info', // Icono de éxito
+            title: 'Editado exitosamente!', // Título de la notificación
+            text: '¡Puedes verlo en la pagina de gestionar!', // Texto de la notificación
+            showConfirmButton: false, // Nos muestra el botón de confirmación
+            timer: 1500 // Tiempo de duración de la notificación (en milisegundos)
+        })
+    }
+    </script>
+    
 <%@include file= "Template/footer.jsp" %>
