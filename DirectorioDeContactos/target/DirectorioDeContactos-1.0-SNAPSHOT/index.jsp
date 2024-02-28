@@ -259,7 +259,7 @@
             var id = $(this).data('nombre');
             // Realizar una solicitud AJAX para obtener detalles del contacto por su id
             $.ajax({
-                url: 'SvGestionContacto?id=' + id, // URL del servlet o recurso que maneja la solicitud
+                url: 'SvVerAnadir?id=' + id, // URL del servlet o recurso que maneja la solicitud
                 method: 'GET',
                 success: function (data) {
                     // Éxito: Colocar los detalles del contacto en el contenedor #contacto-details

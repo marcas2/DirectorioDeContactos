@@ -28,7 +28,7 @@
             <div class="card" style=" border-radius: 2rem; box-shadow: 0px 20px 40px -30px #615145; color: black; background-color: white;" >
                 <div class="card-body">
                     <div class="table-responsive">
-                        <form action="SvGestionContacto" method="POST" >
+                        <form action="SvVerAnadir" method="POST" >
                             <div>
                                 <label for="validationCustom01" class="form-label">Id</label>
                                 <input type="text" class="form-control" name="id" value="<%=id%>" readonly>

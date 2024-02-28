@@ -1,8 +1,9 @@
 Java\Persistencia.class
+Servlets\SvVerAnadir.class
 Java\Nodo.class
 Java\Directorio.class
 Java\Metodos.class
 Servlets\SvEliminarBuscar.class
 Java\Contacto.class
-Servlets\SvGestiones.class
 Servlets\SvGestionContacto.class
+Servlets\SvEditar.class
