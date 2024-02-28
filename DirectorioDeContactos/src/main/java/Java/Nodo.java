@@ -7,18 +7,27 @@ package Java;
 import java.io.Serializable;
 
 /**
- *
- * @author maria
+ * Clase Nodo
+ * @author Juan- María- Angel
  */
+
 public class Nodo implements Serializable {
+    /**
+     * Atributos
+     */
     Contacto contacto;
     Nodo izquierda, derecha;
-
+    
+    /**
+     * Constructor
+     */
     public Nodo(Contacto contacto) {
         this.contacto = contacto;
         izquierda = derecha = null;
     }
-
+    /**
+     * Getter y setter
+     */
     public Contacto getContacto() {
         return contacto;
     }
@@ -42,32 +51,44 @@ public class Nodo implements Serializable {
     public void setDerecha(Nodo derecha) {
         this.derecha = derecha;
     }
+    /**
+     * Imprimir dato en consola
+     */
     public void imprimirDato() { 
         System.out.println(this.getContacto().getNombre());
     }
-    
-private Nodo buscarSucesor() {
-    return (izquierda == null) ? this : izquierda.buscarSucesor();
-}
-
-public Nodo eliminar(String unNombre) {
-    if (contacto.getNombre().compareToIgnoreCase(unNombre) == 0) {
-        if (izquierda == null) {
-            return derecha;
-        }
-        if (derecha == null) {
-            return izquierda;
-        }
-        Nodo sucesor = derecha.buscarSucesor();
-        derecha = derecha.eliminar(sucesor.contacto.getNombre());
-        sucesor.izquierda = izquierda;
-        sucesor.derecha = derecha;
-        return sucesor;
-    } else if (contacto.getNombre().compareToIgnoreCase(unNombre) > 0 && izquierda != null) {
-        izquierda = izquierda.eliminar(unNombre);
-    } else if (derecha != null) {
-        derecha = derecha.eliminar(unNombre);
+    /**
+     * Buscar sucesor para eliminar
+     */
+    private Nodo buscarSucesor() {
+        return (izquierda == null) ? this : izquierda.buscarSucesor();//Busca el ultimo a la izquierda
     }
-    return this;
-}
+    /**
+     * Metodo eliminar que es llamado desde directorio
+     */
+    public Nodo eliminar(String unNombre) {
+        
+        if (contacto.getNombre().compareToIgnoreCase(unNombre) == 0) {//Verificar si coincide el nombre
+            if (izquierda == null) {
+                //Si no hay izquierda establece la derecha
+                return derecha;
+            }
+            if (derecha == null) {
+                //Si no hay derecha establece la izquierda
+                return izquierda;
+            }
+            //Encuentra el sucesor en la derecha
+            Nodo sucesor = derecha.buscarSucesor();
+            derecha = derecha.eliminar(sucesor.contacto.getNombre());//Se borra
+            //Asigna
+            sucesor.izquierda = izquierda;
+            sucesor.derecha = derecha;
+            return sucesor;
+        } else if (contacto.getNombre().compareToIgnoreCase(unNombre) > 0 && izquierda != null) {//Compara y previene errores
+            izquierda = izquierda.eliminar(unNombre);//Elimina
+        } else if (derecha != null) { //Previene errores
+            derecha = derecha.eliminar(unNombre);//Elimina
+        }
+        return this;//Regresa el nodo
+    }
 }

@@ -5,17 +5,24 @@
 package Java;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 /**
- *
- * @author maria
+ *  Clase Contacto
+ * @author Juan- María- Angel
  */
 public class Contacto implements Serializable{
+    
+    /**
+     * Atributos
+     */
     
     String nombre, apellido, correo, direccion;
     int id;
     String celular; 
+    
+    /**
+     * Constructor vacio y lleno
+     */
     
     public Contacto() {
     }
@@ -29,6 +36,10 @@ public class Contacto implements Serializable{
         this.id = id;
         this.celular = celular;
     }
+    
+    /**
+     * Getter and Setter
+     */
     
     public int getId() {
         return id;
@@ -77,8 +88,5 @@ public class Contacto implements Serializable{
     public void setCelular(String celular) {
         this.celular = celular;
     }
-
-
-   
     
 }

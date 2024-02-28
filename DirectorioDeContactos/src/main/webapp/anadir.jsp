@@ -2,8 +2,20 @@
 <%@include file= "Template/header.jsp" %>
 <%
     ServletContext context= getServletContext();
-    int id=Metodos.mostrarId(context);
+    int id=Metodos.mostrarId(context);//Gestion para cargar ID en formulario
+    String alert = request.getParameter("alert"); //Recibe alerta para sweet alert o toastr
+     if (alert!=null){//Prevenir errores
+        if(alert.equals("info")){ //Caso de añadido exitoso
 %>
+<script>
+    $(document).ready(function () {
+        info();
+    });
+</script>
+<%
+        }}
+%>
+
     <!-- Contenido de la pagina -->
         <div class="container-fluid">
             <!-- Titulo -->
@@ -52,4 +64,26 @@
 
                 </div>
                 <br>
+                <script>
+                    function info() {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "3000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+                toastr["info"]("Los nombres son unicos en tu directorio, recuerda que no puedes editarlos!", "Informacion");
+            }
+                </script>
 <%@include file= "Template/footer.jsp" %>

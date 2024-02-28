@@ -51,13 +51,12 @@ public class SvGestionContacto extends HttpServlet {
         if (li != null) {
             // Construir una cadena HTML con información del libro
             String libroHtml = "<h2>Nombre: " + li.getContacto().getNombre() + "</h2>"+
-                     "<h3> Id:</h3><p> " +li.getContacto().getId()+ "</p>" +"<img src="+"https://img.freepik.com/vector-premium/icono-circulo-usuario-anonimo-ilustracion-vector-estilo-plano-sombra_520826-1931.jpg"+" style="+"width:70%;"+">"+
+                     "<h3> Id:</h3><p> " +li.getContacto().getId()+ "</p>" +
                     "<h3> Apellido:</h3><p> " +li.getContacto().getApellido()+ "</p>"+
                     "<h3> Direccion:</h3><p> " +li.getContacto().getDireccion()+ "</p>"+
                     "<h3> Telefono:</h3><p> " +li.getContacto().getCelular()+ "</p>"+
                     "<h3> Correo:</h3><p> " +li.getContacto().getCorreo()+ "</p>"
-                   
-                    ;
+                 ;
             // Establecer el tipo de contenido de la respuesta
             response.setContentType("text/html; charset=UTF-8");
             // Escribir la cadena HTML en el cuerpo de la respuesta
@@ -83,18 +82,22 @@ public class SvGestionContacto extends HttpServlet {
          ServletContext context = getServletContext();
          Directorio arbol = new Directorio();  
          arbol = Persistencia.deserializar(context);
-         System.out.println(arbol);
+         String alert= "anadido";
          if (arbol==null){
              arbol = new Directorio();  
          }
-         //String a=Persistencia.deserializar(context);
-       
+         if(!arbol.nombreBuscar(nombre)){
          Contacto c= new Contacto(nombre, apellido,correo,direccion,id,celular);     
          arbol.insertar(c);
          Persistencia.serializar(arbol, context);
          arbol.inorden();
+         } else{
+             System.out.println("Nombre igual");
+             alert="nomRepetido";
+             
+         }
         
-         response.sendRedirect("index.jsp?alert="+"anadido");
+         response.sendRedirect("index.jsp?alert="+alert);
         
     }
 
