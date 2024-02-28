@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author maria
  */
 public class Nodo implements Serializable {
-     Contacto contacto;
+    Contacto contacto;
     Nodo izquierda, derecha;
 
     public Nodo(Contacto contacto) {
@@ -45,4 +45,29 @@ public class Nodo implements Serializable {
     public void imprimirDato() { 
         System.out.println(this.getContacto().getNombre());
     }
+    
+private Nodo buscarSucesor() {
+    return (izquierda == null) ? this : izquierda.buscarSucesor();
+}
+
+public Nodo eliminar(String unNombre) {
+    if (contacto.getNombre().compareToIgnoreCase(unNombre) == 0) {
+        if (izquierda == null) {
+            return derecha;
+        }
+        if (derecha == null) {
+            return izquierda;
+        }
+        Nodo sucesor = derecha.buscarSucesor();
+        derecha = derecha.eliminar(sucesor.contacto.getNombre());
+        sucesor.izquierda = izquierda;
+        sucesor.derecha = derecha;
+        return sucesor;
+    } else if (contacto.getNombre().compareToIgnoreCase(unNombre) > 0 && izquierda != null) {
+        izquierda = izquierda.eliminar(unNombre);
+    } else if (derecha != null) {
+        derecha = derecha.eliminar(unNombre);
+    }
+    return this;
+}
 }

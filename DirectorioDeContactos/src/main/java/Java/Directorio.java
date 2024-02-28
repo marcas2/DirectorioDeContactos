@@ -112,7 +112,7 @@ private void construirTabla(Nodo nodo, StringBuilder tablaHtml) {
         tablaHtml.append("<td>").append(nodo.getContacto().getCorreo()).append("</td>");
         tablaHtml.append("<td><center> <a href=\"#\" class=\"btn btn-info btn-circle\" data-bs-toggle=\"ver\" data-bs-target=\"#exampleModal\" data-nombre=\"").append(nodo.getContacto().getId()).append( "\" style=\"margin-left:5px; margin-right: 5px\"><i class=\"fa-regular fa-eye\"></i></a>");
         tablaHtml.append("<a href=\"#\" class=\"btn btn-warning btn-circle\" data-bs-toggle=\"editar\" data-bs-target=\"#editarModal\" data-nombre=\"" ).append(nodo.getContacto().getId()).append("\" style=\"margin-left:5px; margin-right: 5px\"><i class=\"fa-solid fa-user-pen\"></i></a>");
-        tablaHtml.append("<a href=\"#\" class=\"btn btn-danger btn-circle deleteButton\" id=\"deleteButton\" data-titulo=\"" ).append(nodo.getContacto().getId()).append("\" style=\"margin-left:5px; margin-right: 5px\"><i class=\"fas fa-trash\"></i></a></center></td>");        tablaHtml.append("</tr>");
+        tablaHtml.append("<a href=\"#\" class=\"btn btn-danger btn-circle deleteButton\" id=\"deleteButton\" data-titulo=\"" ).append(nodo.getContacto().getNombre()).append("\" style=\"margin-left:5px; margin-right: 5px\"><i class=\"fas fa-trash\"></i></a></center></td>");        tablaHtml.append("</tr>");
         construirTabla(nodo.getIzquierda(), tablaHtml);
         construirTabla(nodo.getDerecha(), tablaHtml);
     }
@@ -167,55 +167,11 @@ public void editarContacto(int id, Contacto nuevoContacto) {
         System.out.println("El contacto con el ID " + id + " no se encontró en el directorio.");
     }
 }
-public void eliminarContacto(int id) {
-    if (raiz == null) {
-        System.out.println("El directorio está vacío.");
-        return;
-    }
-    
-    raiz = eliminarNodo(raiz, id);
-    System.out.println("Contacto eliminado correctamente.");
-}
 
-private Nodo eliminarNodo(Nodo nodo, int id) {
-    if (nodo == null) {
-        return null;
-    }
-    
-    // Recursivamente buscar el nodo a eliminar
-    if (id < nodo.getContacto().getId()) {
-        nodo.setIzquierda(eliminarNodo(nodo.getIzquierda(), id));
-    } else if (id > nodo.getContacto().getId()) {
-        nodo.setDerecha(eliminarNodo(nodo.getDerecha(), id));
-    } else {
-        // Caso 1: El nodo a eliminar es una hoja o tiene un solo hijo
-        if (nodo.getIzquierda() == null) {
-            return nodo.getDerecha();
-        } else if (nodo.getDerecha() == null) {
-            return nodo.getIzquierda();
-        }
-        
-        // Caso 2: El nodo a eliminar tiene dos hijos
-        // Encontrar el sucesor en orden (el nodo más pequeño en el subárbol derecho)
-        Nodo sucesor = encontrarSucesor(nodo.getDerecha());
-        
-        // Copiar los datos del sucesor al nodo actual
-        nodo.getContacto().setId(sucesor.getContacto().getId());
-        
-        // Eliminar el sucesor
-        nodo.setDerecha(eliminarNodo(nodo.getDerecha(), sucesor.getContacto().getId()));
-    }
-    
-    return nodo;
-}
 
-private Nodo encontrarSucesor(Nodo nodo) {
-    Nodo actual = nodo;
-    while (actual.getIzquierda() != null) {
-        actual = actual.getIzquierda();
-    }
-    return actual;
-}
+
+
+
 private void tablaBusqueda(Nodo nodo, StringBuilder tablaHtml, String termino) {
     boolean encontrado=false;
     if (nodo != null ) {
@@ -229,7 +185,7 @@ private void tablaBusqueda(Nodo nodo, StringBuilder tablaHtml, String termino) {
         tablaHtml.append("<td>").append(nodo.getContacto().getCorreo()).append("</td>");
         tablaHtml.append("<td><center> <a href=\"#\" class=\"btn btn-info btn-circle\" data-bs-toggle=\"ver\" data-bs-target=\"#exampleModal\" data-nombre=\"").append(nodo.getContacto().getId()).append( "\" style=\"margin-left:5px; margin-right: 5px\"><i class=\"fa-regular fa-eye\"></i></a>");
         tablaHtml.append("<a href=\"#\" class=\"btn btn-warning btn-circle\" data-bs-toggle=\"editar\" data-bs-target=\"#editarModal\" data-nombre=\"" ).append(nodo.getContacto().getId()).append("\" style=\"margin-left:5px; margin-right: 5px\"><i class=\"fa-solid fa-user-pen\"></i></a>");
-        tablaHtml.append("<a href=\"#\" class=\"btn btn-danger btn-circle deleteButton\" id=\"deleteButton\" data-titulo=\"" ).append(nodo.getContacto().getId()).append("\" style=\"margin-left:5px; margin-right: 5px\"><i class=\"fas fa-trash\"></i></a></center></td>");        tablaHtml.append("</tr>");
+        tablaHtml.append("<a href=\"#\" class=\"btn btn-danger btn-circle deleteButton\" id=\"deleteButton\" data-titulo=\"" ).append(nodo.getContacto().getNombre()).append("\" style=\"margin-left:5px; margin-right: 5px\"><i class=\"fas fa-trash\"></i></a></center></td>");        tablaHtml.append("</tr>");
         tablaBusqueda(nodo.getIzquierda(), tablaHtml, termino);
             tablaBusqueda(nodo.getDerecha(), tablaHtml,termino);
             encontrado=true;
@@ -258,4 +214,7 @@ private void tablaBusqueda(Nodo nodo, StringBuilder tablaHtml, String termino) {
             tablaHtml.append("</tr>");
     return tablaHtml.toString();
 }
+    public void eliminar (String nom){
+        raiz=raiz.eliminar(nom);
+    }
 }

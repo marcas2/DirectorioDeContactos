@@ -31,22 +31,21 @@ public class SvEliminarBuscar extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-         int id =Integer.parseInt(request.getParameter("id"));
-        ServletContext context = getServletContext();
-         Directorio arbol = new Directorio();  
-         arbol = Persistencia.deserializar(context);
-         System.out.println(arbol);
-         if (arbol==null){
-             arbol = new Directorio();  
-         }
-        //creamos un nuevo libro y llamamos al metodo encontrarLibro para adquirir sus atributos
-        //enviamos como parametro el titulo para que el metodo lo filtre en el array 
-        arbol.eliminarContacto(id);
-        Persistencia.serializar(arbol, context);
-        response.sendRedirect("index.jsp");
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+   // int id = Integer.parseInt(request.getParameter("id"));
+   String nombre= request.getParameter("id");
+    ServletContext context = getServletContext();
+    Directorio arbol = Persistencia.deserializar(context);
+    System.out.println(arbol);
+    if (arbol == null) {
+        arbol = new Directorio();
     }
+    arbol.eliminar(nombre); // Llama al método eliminarContacto con el ID proporcionado
+    Persistencia.serializar(arbol, context);
+    response.sendRedirect("index.jsp");
+}
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

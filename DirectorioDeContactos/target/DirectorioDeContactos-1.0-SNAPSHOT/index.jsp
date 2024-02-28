@@ -8,7 +8,7 @@
                      String alert = request.getParameter("alert");
                      System.out.println(request.getParameter("alert"));
                      String tabla=Metodos.tabla(termino, context);
-                     System.out.println("aaaaaaaaaa "+alert);
+
 
                      if (alert!=null){
                      
@@ -147,7 +147,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Directorio de contactos</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Listando contactos en preorden</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
