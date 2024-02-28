@@ -15,12 +15,12 @@ public class Contacto implements Serializable{
     
     String nombre, apellido, correo, direccion;
     int id;
-    int celular; 
+    String celular; 
     
     public Contacto() {
     }
     
-    public Contacto(String nombre, String apellido, String correo, String direccion,int id, int celular) {
+    public Contacto(String nombre, String apellido, String correo, String direccion,int id, String celular) {
 
         this.nombre = nombre;
         this.apellido = apellido;
@@ -70,11 +70,11 @@ public class Contacto implements Serializable{
         this.direccion = direccion;
     }
 
-    public int getCelular() {
+    public String getCelular() {
         return celular;
     }
 
-    public void setCelular(int celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 

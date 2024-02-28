@@ -105,7 +105,7 @@ public class SvGestiones extends HttpServlet {
         String apellido= request.getParameter("apellido");
         String correo= request.getParameter("correo");
         String direccion= request.getParameter("direccion");
-        int celular=Integer.parseInt(request.getParameter("celular"));
+        String celular=request.getParameter("celular");
          ServletContext context = getServletContext();
          Directorio arbol = new Directorio();  
          arbol = Persistencia.deserializar(context);

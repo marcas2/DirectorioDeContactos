@@ -31,7 +31,7 @@
                                 </div>
                                 <div>
                                   <label for="validationCustom03" class="form-label">Correo</label>
-                                  <input type="text" class="form-control" id="validationCustom03" name="correo" required>
+                                  <input type="email" class="form-control" id="validationCustom03" name="correo" required>
                                 </div>
                                <div>
                                   <label for="validationCustom03" class="form-label">Direccion</label>

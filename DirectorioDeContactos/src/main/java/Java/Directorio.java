@@ -175,7 +175,7 @@ public void editarContacto(int id, Contacto nuevoContacto) {
 private void tablaBusqueda(Nodo nodo, StringBuilder tablaHtml, String termino) {
     boolean encontrado=false;
     if (nodo != null ) {
-        if( nodo.getContacto().getNombre().contains(termino)){
+        if( nodo.getContacto().getNombre().equalsIgnoreCase(termino)||nodo.getContacto().getApellido().equalsIgnoreCase(termino)||nodo.getContacto().getCelular().equalsIgnoreCase(termino)){
         tablaHtml.append("<tr>");
         tablaHtml.append("<td>").append(nodo.getContacto().getId()).append("</td>");
         tablaHtml.append("<td>").append(nodo.getContacto().getNombre()).append("</td>");
